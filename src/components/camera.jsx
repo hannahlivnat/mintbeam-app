@@ -9,7 +9,7 @@ class Camera extends React.Component {
     startVideo = () => {
         const constraints = { video: this.state.video };
         const video = document.querySelector('#player');
-        console.log(video);
+        //console.log(video);
         navigator.mediaDevices
             .getUserMedia(constraints)
             .then((stream) => {
@@ -19,9 +19,14 @@ class Camera extends React.Component {
             .catch((err) => console.log(err));
     };
 
-    componentDidMount = () => {
-        this.startVideo();
-    };
+    stopVideo = () => {
+      const video = document.querySelector("#player");
+      video.srcObject.getVideoTracks().forEach(track => track.stop());
+    }
+
+    //componentDidMount = () => {
+    //    this.startVideo();
+    //};
 
     render = () => {
         return (
@@ -32,6 +37,8 @@ class Camera extends React.Component {
                     controls
                     autoPlay
                 ></video>
+                <button onClick={this.startVideo}>Start Video</button>
+                <button onClick={this.stopVideo}>Stop Video</button>
             </div>
         );
     };
