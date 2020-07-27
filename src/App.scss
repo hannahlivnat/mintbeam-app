@@ -49,12 +49,54 @@ header {
   padding-top: 4rem;
   width: 100%;
   display: grid;
-  place-items: center;
-
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: 
+  "video photo"
+  "button .";
+  
   video {
-    width: 60%;
-    margin: auto;
+    width: 90%;
     height: auto;
+    max-height: 70vh;
+    margin: auto;
+  }
+
+  .photo-taken {
+    grid-area: photo;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h4 {
+      color: $light-blue;
+      font-size: $subheading-fontsize;
+      margin: 20px auto  0 auto;
+    }
+
+    .photo-options {
+      margin: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      button {
+        background-color: $light-blue;
+        box-shadow: 1px 1px 4px $black;
+        border-radius: 5px;
+        margin: 0 10px;
+        outline: none;
+        border: none;   
+      }
+    }
+
+    .canvas {
+      width: 95%;
+      padding: 2px;
+      height: auto;
+      border: 5px dotted $light-blue;
+    }
   }
 
   .button-container {

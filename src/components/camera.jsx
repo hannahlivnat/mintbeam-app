@@ -1,12 +1,9 @@
 import React from "react";
 
-let mutenotification = "Turn on Sound";
-
-
 class Camera extends React.Component {
     state = {
         video: true,
-        audio: false,
+        audio: true,
         player: React.createRef(),
     };
 
@@ -29,6 +26,25 @@ class Camera extends React.Component {
       video.srcObject.getVideoTracks().forEach(track => track.stop());
     }
 
+    takeSnapShot = () => {
+      const canvas = document.querySelector('.canvas')
+      const context = canvas.getContext('2d');
+      const photoDisplay = document.querySelector('.photo-taken')
+      const video = document.querySelector('#player');  
+      context.drawImage(video, 0, 0, canvas.width, canvas.height)
+      photoDisplay.style.visibility = "visible";
+    }
+
+    deleteImg = () => {
+      const canvas = document.querySelector(".canvas");
+      const context = canvas.getContext("2d");
+      const photoDisplay = document.querySelector(".photo-taken");
+
+      context.clearRect(0,0,canvas.width, canvas.height);
+      photoDisplay.style.visibility = "hidden";
+
+    }
+
     render = () => {
         return (
             <div className="video-stream">
@@ -41,6 +57,15 @@ class Camera extends React.Component {
                 <div className="button-container">
                     <button onClick={this.startVideo}>Start Video</button>
                     <button onClick={this.stopVideo}>Stop Video</button>
+                    <button onClick={this.takeSnapShot}>Snap a Pic</button>
+                </div>
+                <div className="photo-taken">
+                    <div className="photo-options">
+                        <button onClick={this.deleteImg}>DELETE</button>
+                        <button>SAVE</button>
+                    </div>
+
+                    <canvas className="canvas" />
                 </div>
             </div>
         );
