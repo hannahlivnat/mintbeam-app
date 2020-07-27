@@ -1,13 +1,18 @@
-import React, {useRef, createRef, useEffect} from "react";
+import React from "react";
+
+let mutenotification = "Turn on Sound";
+
 
 class Camera extends React.Component {
     state = {
         video: true,
+        audio: false,
         player: React.createRef(),
     };
 
+
     startVideo = () => {
-        const constraints = { video: this.state.video };
+        const constraints = { audio: this.state.audio, video: this.state.video };
         const video = document.querySelector('#player');
         //console.log(video);
         navigator.mediaDevices
@@ -24,10 +29,6 @@ class Camera extends React.Component {
       video.srcObject.getVideoTracks().forEach(track => track.stop());
     }
 
-    //componentDidMount = () => {
-    //    this.startVideo();
-    //};
-
     render = () => {
         return (
             <div className="video-stream">
@@ -37,8 +38,10 @@ class Camera extends React.Component {
                     controls
                     autoPlay
                 ></video>
-                <button onClick={this.startVideo}>Start Video</button>
-                <button onClick={this.stopVideo}>Stop Video</button>
+                <div className="button-container">
+                    <button onClick={this.startVideo}>Start Video</button>
+                    <button onClick={this.stopVideo}>Stop Video</button>
+                </div>
             </div>
         );
     };
