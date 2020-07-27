@@ -46,12 +46,15 @@ class Camera extends React.Component {
     }
 
     saveImg = () => {
-      console.log("I am being triggered");
+
       const canvas = document.querySelector(".canvas");
       const saveButton = document.querySelector('#saveButton');
-      const image = canvas.toDataURL('image/png', 0.5);
-      console.log(image);
-      const link = document.createElement('a');
+
+      //CONVERT CANVAS TO PNG FILE
+      const image = canvas.toDataURL('image/png', 1.0);
+
+      // DOWNLOAD THE IMAGE
+      const link = document.createElement("a");
       link.download = 'new-image.png';
       link.href = image;
       link.click();
@@ -73,12 +76,13 @@ class Camera extends React.Component {
                     <button onClick={this.takeSnapShot}>Snap a Pic</button>
                 </div>
                 <div className="photo-taken">
+                    <canvas className="canvas" />
                     <div className="photo-options">
                         <button onClick={this.deleteImg}>DELETE</button>
-                        <button onClick={this.saveImg} id="saveButton">SAVE</button>
+                        <button onClick={this.saveImg} id="saveButton">
+                            SAVE
+                        </button>
                     </div>
-
-                    <canvas className="canvas" />
                 </div>
             </div>
         );

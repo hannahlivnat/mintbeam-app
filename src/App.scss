@@ -4,9 +4,39 @@
 $light-blue: #61dafb;
 $black:  #282c34;
 
+//layout breakpoints
+
+@mixin bp($point) {
+
+  @if $point==xs {
+    @media only screen and (max-width: 350px) {
+      @content;
+    }
+  }
+
+  @else if $point==sm {
+    @media only screen and (max-width: 620px) {
+      @content;
+    }
+  }
+
+  @else if $point==md {
+    @media only screen and (max-width: 1000px) {
+      @content;
+    }
+  }
+
+  @else if $point==xl {
+    @media only screen and (min-width: 1300px) {
+      @content;
+    }
+  }
+}
+
 //FONT VARIABLES
 $subheading-fontsize: calc(10px + 2vmin);
 $body-fontsize: calc(3px + 2vmin);
+$small-fontsize: calc(1px + 1.5vmin);
 $sourcesans: ('Source Sans Pro', sans-serif);
 
 html, body, .container{
@@ -45,6 +75,15 @@ header {
 }
 
 .video-stream {
+  @include bp(md) {
+    grid-template-columns: 100%;
+    grid-template-rows: 1fr 75px 1fr;
+    grid-template-areas: 
+    "video"
+    "button"
+    "photo";
+  }
+
   grid-area: video;
   padding-top: 4rem;
   width: 100%;
@@ -65,36 +104,48 @@ header {
   .photo-taken {
     grid-area: photo;
     visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    padding: 15px;
+    grid-template-columns: 100%;
+    grid-template-rows: 1fr 200px;
+    grid-gap: 10px;
+    grid-template-areas: 
+    "photo"
+    "button";
 
-    h4 {
-      color: $light-blue;
-      font-size: $subheading-fontsize;
-      margin: 20px auto  0 auto;
-    }
 
     .photo-options {
-      margin: auto;
+      grid-area: button;
+      margin: 0 auto auto auto;
       display: flex;
       flex-direction: row;
       justify-content: center;
+      align-content: flex-start;
 
       button {
         background-color: $light-blue;
         box-shadow: 1px 1px 4px $black;
         border-radius: 5px;
+        font-size: $small-fontsize;
+        color: $black;
+        letter-spacing: .03px;
         margin: 0 10px;
+        padding: 5px 10px; 
         outline: none;
         border: none;   
       }
     }
 
     .canvas {
+
+      @include bp(md) {
+        width: 75%;
+        height: auto;
+      }
+      grid-area: photo;
       width: 95%;
-      padding: 2px;
-      height: auto;
+      height: 50%;
+      margin: auto;
       border: 5px dotted $light-blue;
     }
   }
