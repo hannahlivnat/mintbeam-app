@@ -45,6 +45,19 @@ class Camera extends React.Component {
 
     }
 
+    saveImg = () => {
+      console.log("I am being triggered");
+      const canvas = document.querySelector(".canvas");
+      const saveButton = document.querySelector('#saveButton');
+      const image = canvas.toDataURL('image/png', 0.5);
+      console.log(image);
+      const link = document.createElement('a');
+      link.download = 'new-image.png';
+      link.href = image;
+      link.click();
+
+    }
+
     render = () => {
         return (
             <div className="video-stream">
@@ -62,7 +75,7 @@ class Camera extends React.Component {
                 <div className="photo-taken">
                     <div className="photo-options">
                         <button onClick={this.deleteImg}>DELETE</button>
-                        <button>SAVE</button>
+                        <button onClick={this.saveImg} id="saveButton">SAVE</button>
                     </div>
 
                     <canvas className="canvas" />
